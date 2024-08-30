@@ -6,6 +6,7 @@ from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.sql import text
+from uvicorn import run
 
 from src.database import ContactDatabaseModel, get_db
 
@@ -126,3 +127,7 @@ async def delete_contact(contact_id: int = Path(ge=1)) -> dict:
     await sleep(1)
 
     return {'contact': contact_id}
+
+
+if __name__ == '__main__':
+    run('main:app', host='0.0.0.0', port=8000, reload=True)

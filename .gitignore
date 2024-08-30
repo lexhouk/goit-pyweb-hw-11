@@ -1,3 +1,4 @@
 .secret
 .venv
 poetry.lock
+__pycache__

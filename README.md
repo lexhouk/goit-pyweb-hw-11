@@ -14,7 +14,7 @@ $ poetry install
 $ echo 'your database user password' > .secret
 $ docker run --name lexhouk-hw-11 -p 5432:5432 -e "POSTGRES_PASSWORD=$(cat .secret)" -d postgres
 $ poetry shell
-$ uvicorn main:app --host localhost --port 8000 --reload
+$ python main.py
 ```
 
 All available endoints can be viewed in [Swagger UI](http://localhost:8000/docs) or [ReDoc](http://localhost:8000/redoc), and can only be tested in the former.
