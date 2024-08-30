@@ -1,2 +1,3 @@
+.secret
 .venv
 poetry.lock

@@ -11,6 +11,8 @@ $ poetry install
 ## Usage
 
 ```bash
+$ echo 'your database user password' > .secret
+$ docker run --name lexhouk-hw-11 -p 5432:5432 -e "POSTGRES_PASSWORD=$(cat .secret)" -d postgres
 $ poetry shell
 $ uvicorn main:app --host localhost --port 8000 --reload
 ```
