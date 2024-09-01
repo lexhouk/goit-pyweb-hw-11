@@ -1,11 +1,10 @@
 from aiofile import async_open
 from fastapi import Depends, HTTPException, status
-from sqlalchemy import Date, String, Text
+from sqlalchemy import Date, String, Text, text
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, \
     async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy.sql import text
 
 
 async def uri() -> str:
