@@ -6,6 +6,7 @@
 $ git clone https://github.com/lexhouk/goit-pyweb-hw-11.git
 $ cd goit-pyweb-hw-11
 $ poetry install
+$ alembic upgrade head
 ```
 
 ## Usage

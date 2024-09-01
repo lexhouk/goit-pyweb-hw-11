@@ -4,8 +4,7 @@ from sqlalchemy import Date, String, Text
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, \
     async_sessionmaker, create_async_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql import text
 
 
@@ -23,7 +22,7 @@ async def init_engine() -> None:
     global engine
 
     try:
-        engine = create_async_engine(await uri(), echo=True)
+        engine = create_async_engine(await uri())
 
         async with engine.connect() as conn:
             await conn.execute(text('SELECT 1'))
@@ -66,7 +65,8 @@ async def get_db(db_init=Depends(init_db_once)):
         )
 
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    ...
 
 
 class ContactDatabaseModel(Base):

@@ -78,7 +78,7 @@ async def create_contact(
 async def read_contacts(
     first_name: str = None,
     last_name: str = None,
-    email: str = Query(None, regex=r'^[^@]+@[^\.]+\.\w+$'),
+    email: str = Query(None, pattern=r'^[^@]+@[^\.]+\.\w+$'),
     db: AsyncSession = Depends(get_db)
 ) -> list[ContactResponseModel]:
     query = select(ContactDatabaseModel)
