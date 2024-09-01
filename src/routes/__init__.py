@@ -4,11 +4,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .create import action as create
 from .delete import action as delete
 from .helper import get
-from .read_birthday import action as read_birthday
-from .read_one import action as read_one
+from .birthday import action as birthday
+from .read import action as read
 from .update import action as update
 from src.database import get_db
-from src.schemas import Request, Response
+from src.schemas import Request, Response, Responses
 
 
 router = APIRouter(prefix='/contacts', tags=['Contacts'])
@@ -28,13 +28,16 @@ async def read_contacts(
     last_name: str = None,
     email: str = Query(None, pattern=r'^[^@]+@[^\.]+\.\w+$'),
     db: AsyncSession = Depends(get_db)
-) -> list[Response]:
-    return await read_one(db, first_name, last_name, email)
+) -> Responses:
+    return await read(db, first_name, last_name, email)
 
 
 @router.get('/birthdays')
-async def read_birthday_contacts() -> dict:
-    return await read_birthday()
+async def read_birthday_contacts(
+    days: int = Query(default=7, ge=0),
+    db: AsyncSession = Depends(get_db)
+) -> Responses:
+    return await birthday(db, days)
 
 
 @router.get('/{contact_id}')

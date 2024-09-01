@@ -1,16 +1,13 @@
-from datetime import date
-from typing import Optional
-
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, PastDate
 
 
 class Request(BaseModel):
     first_name: str = Field(min_length=2, max_length=30)
-    last_name: Optional[str] = Field(min_length=2, max_length=40)
-    email: Optional[EmailStr] = Field(min_length=6, max_length=50)
+    last_name: str = Field(min_length=2, max_length=40)
+    email: EmailStr = Field(min_length=6, max_length=50)
     phone_number: str = Field(min_length=3, max_length=20)
-    birthday: Optional[date] = None
-    bio: Optional[str] = None
+    birthday: PastDate = Field(None)
+    bio: str = Field(None, max_length=400)
 
 
 class Response(BaseModel):
@@ -19,8 +16,11 @@ class Response(BaseModel):
     last_name: str
     email: EmailStr
     phone_number: str
-    birthday: date
+    birthday: PastDate
     bio: str
 
     class Config:
         from_attributes = True
+
+
+Responses = list[Response]

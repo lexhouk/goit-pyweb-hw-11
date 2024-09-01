@@ -1,6 +1,6 @@
 from aiofile import async_open
 from fastapi import Depends, HTTPException, status
-from sqlalchemy import Date, String, Text, text
+from sqlalchemy import Date, String, text
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, \
     async_sessionmaker, create_async_engine
@@ -71,12 +71,12 @@ class Base(DeclarativeBase):
 class Entity(Base):
     __tablename__ = 'contacts'
     id: Mapped[int] = mapped_column(primary_key=True)
-    first_name: Mapped[str] = mapped_column(String(30), nullable=False)
-    last_name: Mapped[str] = mapped_column(String(40))
-    email: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
+    first_name: Mapped[str] = mapped_column(String(30), index=True)
+    last_name: Mapped[str] = mapped_column(String(40), index=True)
+    email: Mapped[str] = mapped_column(String(50), unique=True, index=True)
     phone_number: Mapped[str] = mapped_column(String(20))
     birthday: Mapped[str] = mapped_column(Date())
-    bio: Mapped[str] = mapped_column(Text)
+    bio: Mapped[str] = mapped_column(String(400))
 
 
 async def init_db():
