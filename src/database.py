@@ -68,7 +68,7 @@ class Base(DeclarativeBase):
     ...
 
 
-class ContactDatabaseModel(Base):
+class Entity(Base):
     __tablename__ = 'contacts'
     id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str] = mapped_column(String(30), nullable=False)
