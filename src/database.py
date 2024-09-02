@@ -70,13 +70,20 @@ class Base(DeclarativeBase):
 
 class Entity(Base):
     __tablename__ = 'contacts'
+
     id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str] = mapped_column(String(30), index=True)
-    last_name: Mapped[str] = mapped_column(String(40), index=True)
+
+    last_name: Mapped[str] = mapped_column(
+        String(40),
+        index=True,
+        nullable=True,
+    )
+
     email: Mapped[str] = mapped_column(String(50), unique=True, index=True)
-    phone_number: Mapped[str] = mapped_column(String(20))
-    birthday: Mapped[str] = mapped_column(Date())
-    bio: Mapped[str] = mapped_column(String(400))
+    phone_number: Mapped[str] = mapped_column(String(20), nullable=True)
+    birthday: Mapped[str] = mapped_column(Date(), nullable=True)
+    bio: Mapped[str] = mapped_column(String(400), nullable=True)
 
 
 async def init_db():

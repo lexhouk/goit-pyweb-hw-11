@@ -9,7 +9,8 @@ from src.schemas import Responses
 
 
 async def action(db: AsyncSession, days: int) -> Responses:
-    result = await db.execute(select(Entity))
+    query = select(Entity).where(Entity.birthday.isnot(None))
+    result = await db.execute(query)
 
     if not (entities := result.scalars().all()):
         raise HTTPException(status.HTTP_404_NOT_FOUND, 'Not found')
