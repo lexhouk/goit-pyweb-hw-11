@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel, EmailStr, Field, PastDate
 
 
@@ -13,11 +15,11 @@ class Request(BaseModel):
 class Response(BaseModel):
     id: int = Field(default=1, ge=1)
     first_name: str
-    last_name: str = None
+    last_name: Optional[str] = None
     email: EmailStr
-    phone_number: str = None
-    birthday: PastDate = None
-    bio: str = None
+    phone_number: Optional[str] = None
+    birthday: Optional[PastDate] = None
+    bio: Optional[str] = None
 
     class Config:
         from_attributes = True
